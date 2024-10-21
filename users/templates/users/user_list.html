@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row text-center">
+        {% for user in users %}
+        <div class="col-4 mb-3">
+            <div class="card mb-3 box-shadow d-flex flex-column">
+                <div class="card-header">
+                    <h2 class="my-0 font-weight-normal">{{ user.email }}</h2>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p>Status: {{ user.is_active|yesno:"Active,Blocked" }}</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <a href="{% url 'users:toggle_user_status' user.id %}" class="btn btn-sm
+                           {% if user.is_active %}btn-danger{% else %}btn-success{% endif %}">
+                            {% if user.is_active %}
+                                Заблокировать
+                            {% else %}
+                                Разблокировать
+                            {% endif %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

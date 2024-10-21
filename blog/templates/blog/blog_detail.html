@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load media_tags %}
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6 position-relative">
+                <img class="card-img-top mb-5 mb-md-0" src="{{ object.image|get_media }}" alt="..."/>
+                <div class="position-absolute bottom-0 end-0 p-3">
+                    <span class="badge bg-secondary">Просмотры: {{ object.view_count }}</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder">{{ object.title }}</h1>
+                <p class="lead">{{ object.body }}</p>
+                <p class="text-muted">Дата создания: {{ object.created_at|date:"d M Y" }}</p> <!-- Added creation date -->
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

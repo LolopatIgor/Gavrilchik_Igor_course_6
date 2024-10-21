@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card_body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <p>Хотите удалить "{{ object }}" ?</p>
+                            <button type="submit" class="btn btn-danger">Удалить</button>
+                            <a href="{% url 'notification_app:client_list' %}" class="btn btn-warning">Отменить-</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

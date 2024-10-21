@@ -1,0 +1,20 @@
+.btn-show {
+    background-color: #0d6efd; /* Основной цвет кнопки */
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.btn-show:hover {
+    background-color: #0056b3; /* Цвет при наведении */
+}
+
+.btn-edit {
+    color: #0d6efd;
+    border: 1px solid #0d6efd;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-edit:hover {
+    background-color: #0d6efd; /* Цвет при наведении */
+    color: white; /* Цвет текста при наведении */
+}

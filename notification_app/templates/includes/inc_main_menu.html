@@ -1,0 +1,53 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#">Send Dudes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Меню</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" href="/">Главная</a>
+                        <a class="dropdown-item" href="/notification">Рассылки</a>
+                        <a class="dropdown-item" href="/mail">Письма</a>
+                        <a class="dropdown-item" href="/client">Клиенты</a>
+                        {% if user.is_authenticated %}
+                        {% for group in user.groups.all %}
+                        {% if group.name == "manager" %}
+                        <a class="dropdown-item" href="{% url 'users:user_list' %}">Пользователи</a>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="dropdown02" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Профиль</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown02">
+                        {% if user.is_authenticated %}
+                        <form action="{% url 'users:logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdown-item">Выйти</button>
+                        </form>
+
+                        {% else %}
+                        <a class="dropdown-item" href="{% url 'users:login' %}">Войти</a>
+                        <a class="dropdown-item" href="{% url 'users:register' %}">Регистрация</a>
+                        {% endif %}
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+</div>

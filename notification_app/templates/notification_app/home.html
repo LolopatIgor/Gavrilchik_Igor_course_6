@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row text-center mb-5">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Общее количество рассылок</h5>
+                        <p class="card-text display-4">{{ total_notifications }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Активные рассылки</h5>
+                        <p class="card-text display-4">{{ active_notifications }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Уникальные клиенты</h5>
+                        <p class="card-text display-4">{{ unique_clients_count }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h3>Случайные статьи из блога</h3>
+            {% for blog in random_blogs %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    {% if blog.image %}
+                    <img class="card-img-top" src="{{ blog.image.url }}" alt="{{ blog.title }}"
+                         style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="card-img-top"
+                         style="height: 200px; background-color: #f0f0f0; display: flex; justify-content: center; align-items: center;">
+                        <span>No Image Available</span>  <!-- Optional text for clarity -->
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ blog.title }}</h5>
+                        <p class="card-text">{{ blog.body }}</p>
+                        <a href="{% url 'blog:view' blog.slug %}" class="btn btn-primary">Читать далее</a>
+                        <div class="position-absolute bottom-0 end-0 p-3">
+                            <span class="badge bg-secondary">Просмотры: {{ blog.view_count }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

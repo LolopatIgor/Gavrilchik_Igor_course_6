@@ -1,0 +1,52 @@
+[
+  {
+    "model": "notification_app.period",
+    "pk": 1,
+    "fields": {
+      "name": "раз в день"
+    }
+  },
+  {
+    "model": "notification_app.period",
+    "pk": 2,
+    "fields": {
+      "name": "раз в неделю"
+    }
+  },
+  {
+    "model": "notification_app.period",
+    "pk": 3,
+    "fields": {
+      "name": "раз в месяц"
+    }
+  },
+  {
+    "model": "notification_app.status",
+    "pk": 1,
+    "fields": {
+      "name": "Создана"
+    }
+  },
+  {
+    "model": "notification_app.status",
+    "pk": 2,
+    "fields": {
+      "name": "Запущена"
+    }
+  },
+  {
+    "model": "notification_app.status",
+    "pk": 3,
+    "fields": {
+      "name": "Завершена"
+    }
+  },
+  {
+    "model": "notification_app.mail",
+    "pk": 1,
+    "fields": {
+      "title": "Тестовая рассылка",
+      "content": "Это тестовый текст тестовой рассылки"
+    }
+  }
+]

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-12" style="margin-top: 40px;">
+    <form method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card_header">
+                        <h3 class="card_title">Создание рассылки</h3>
+                    </div>
+                    <div class="card_body">
+
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        {{ formset.management_form }}
+
+                        <!-- Клиенты справа -->
+
+
+                        <button type="submit" class="btn btn-success">Создать</button>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card_header">
+                        <h3 class="card_title">Клиенты</h3>
+                    </div>
+                    <div class="card_body">
+                        <div id="client-section">
+                            {% for form in formset %}
+                            {{ form.as_p }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr(".datetimepicker", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true
+        });
+    });
+</script>
+{% endblock %}

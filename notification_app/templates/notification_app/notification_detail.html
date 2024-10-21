@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder mb-4">{{ object.name }}</h1>
+                <p><strong>Дата и время первой отправки:</strong> {{ object.scheduled_time }}</p>
+                <p><strong>Период:</strong> {{ object.period }}</p>
+                <p><strong>Статус:</strong> {{ object.status }}</p>
+                <p><strong>Письмо:</strong> {{ object.mail }}</p>
+            </div>
+        </div>
+
+        <h2 class="mt-5">Клиенты для рассылки:</h2>
+        <ul>
+            {% for mail in send_mail_to %}
+                <li>{{ mail.client }}</li>
+            {% empty %}
+                <li>Клиенты не найдены.</li>
+            {% endfor %}
+        </ul>
+
+        <h2 class="mt-5">Логи отправок:</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Дата и время</th>
+                    <th>Успешно</th>
+                    <th>Ответ почтового сервера</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in send_logs %}
+                    <tr>
+                        <td>{{ log.date_time }}</td>
+                        <td>{{ log.is_success|yesno:"Да,Нет" }}</td>
+                        <td>{{ log.answer }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3">Логи не найдены.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Send dudes(клиенты)</h1>
+    <p class="lead">Send dudes - сервис для рассылки писем.</p>
+</div>
+
+<div class="container">
+    <div class="col-12 mb-5 ml-10">
+        <a class="btn btn-outline-primary" href="{% url 'notification_app:client_create' %}">Новый клиент</a>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row text-center">
+        {% for object in object_list %}
+        <div class="col-4 mb-3">
+            <div class="card mb-3 box-shadow d-flex flex-column position-relative"
+                 style="text-align: left; border: 2px solid #0d6efd; padding-left: 15px;">
+                <div class="d-flex" style="padding-left: 15px; padding-right: 15px;">
+                    <h2 class="my-0 font-weight-normal text-truncate text-primary mb-2 mt-3"
+                        style="flex-grow: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        {{ object }}
+                    </h2>
+                    <a href="{% url 'notification_app:client_delete' object.id %}" class="close"
+                       style="color: #d3d3d3; text-decoration: none; padding-top: 20px; padding-right: 15px;">
+                        <i class="fas fa-times" style="font-size: 20px;"></i>
+                    </a>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <div class="mb-3 body">
+                        <strong>Описание:</strong> {{ object.description }}
+                    </div>
+                    <div class="mb-3 body">
+                        <strong>Email:</strong> {{ object.email }}
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="margin-right: 15px;">
+                        <a class="btn"
+                           style="background-color: #0d6efd; color: white; border-radius: 0.25rem; transition: background-color 0.3s; padding: 10px 25px; font-weight: bold;"
+                           href="{% url 'notification_app:client_detail' object.id %}"
+                           onmouseover="this.style.backgroundColor='#0056b3';"
+                           onmouseout="this.style.backgroundColor='#0d6efd';">Показать</a>
+                    </div>
+                    <div>
+                        <a class="btn"
+                           style="color: #0d6efd; border: 1px solid #0d6efd; border-radius: 0.25rem; transition: background-color 0.3s, color 0.3s; padding: 10px 25px; font-weight: bold;"
+                           href="{% url 'notification_app:client_edit' object.id %}"
+                           onmouseover="this.style.backgroundColor='#0d6efd'; this.style.color='white';"
+                           onmouseout="this.style.backgroundColor='transparent'; this.style.color='#0d6efd';">Редактировать</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
