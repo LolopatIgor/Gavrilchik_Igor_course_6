@@ -9,7 +9,7 @@ from notification_app.views import NotificationListView, NotificationCreateView,
     block_unblock_notification
 
 start_scheduler()
-
+#Test
 app_name = NotificationAppConfig.name
 #test
 urlpatterns = [
