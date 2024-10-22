@@ -1,6 +1,5 @@
 from django.urls import path
 from django.views.decorators.cache import cache_page
-from notification_app.jobs import start_scheduler
 
 from notification_app.apps import NotificationAppConfig
 from notification_app.views import NotificationListView, NotificationCreateView, NotificationEditView, ClientListView, \
