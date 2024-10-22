@@ -37,16 +37,28 @@ class NotificationCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         # Формсет для клиентов
         SendMailToFormSet = inlineformset_factory(Notification, SendMailTo, form=SendMailToForm, extra=10)
-        if self.request.POST:
-            context['formset'] = SendMailToFormSet(self.request.POST)
-        else:
-            context['formset'] = SendMailToFormSet(queryset=SendMailTo.objects.none())
 
-        context['mails'] = Mail.objects.filter(owner=self.request.user)
-        context['clients'] = Client.objects.filter(owner=self.request.user)
+        # Создание формы с фильтрацией по пользователю
+        if self.request.POST:
+            formset = SendMailToFormSet(self.request.POST)
+        else:
+            formset = SendMailToFormSet(queryset=SendMailTo.objects.none())
+
+        # Фильтруем Mail и Client по текущему пользователю
+        for form in formset:
+            form.fields['client'].queryset = Client.objects.filter(owner=self.request.user)
+
+        context['formset'] = formset
+
         return context
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['mail'].queryset = Mail.objects.filter(owner=self.request.user)
+        return form
 
     def form_valid(self, form):
         notification = form.save(commit=False)
@@ -99,17 +111,26 @@ class NotificationEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         # Check if the user is not a manager
         return not self.request.user.groups.filter(name='manager').exists()
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['mail'].queryset = Mail.objects.filter(owner=self.request.user)
+        return form
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Формсет для клиентов
         SendMailToFormSet = inlineformset_factory(Notification, SendMailTo, form=SendMailToForm, extra=10)
         if self.request.POST:
-            context['formset'] = SendMailToFormSet(self.request.POST, instance=self.object)
+            formset = SendMailToFormSet(self.request.POST)
         else:
-            context['formset'] = SendMailToFormSet(instance=self.object)
+            formset = SendMailToFormSet(queryset=SendMailTo.objects.none())
 
-        context['mails'] = Mail.objects.filter(owner=self.request.user)
-        context['clients'] = Client.objects.filter(owner=self.request.user)
+            # Фильтруем Mail и Client по текущему пользователю
+        for form in formset:
+            form.fields['client'].queryset = Client.objects.filter(owner=self.request.user)
+
+        context['formset'] = formset
+
         return context
 
     def form_valid(self, form):
