@@ -3,8 +3,6 @@ from django.urls import path
 from notification_app.apps import NotificationAppConfig
 from users.views import RegisterView, password_reset_view, activate, UserListView, toggle_user_status
 
-#from users.views import
-
 app_name = NotificationAppConfig.name
 urlpatterns = [
     path('', LoginView.as_view(template_name='users/login.html'), name='login'),
