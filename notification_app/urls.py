@@ -8,10 +8,9 @@ from notification_app.views import NotificationListView, NotificationCreateView,
     notification_detail, ClientDetailView, ClientDeleteView, MailDetailView, MailDeleteView, home_view, \
     block_unblock_notification
 
-start_scheduler()
 #Test
 app_name = NotificationAppConfig.name
-#test
+
 urlpatterns = [
     path('', cache_page(120)(home_view), name='home'),
     path('notification', NotificationListView.as_view(), name='notification_list'),
